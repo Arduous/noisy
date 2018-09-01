@@ -261,7 +261,7 @@ class Crawler(object):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--log', metavar='-l', type=str, help='logging level', default='info')
-    parser.add_argument('--config', metavar='-c', required=True, type=str, help='config file', action='append')
+    parser.add_argument('--config', metavar='-c', required=True, type=str, help='config file, argument can be repeated', action='append')
     parser.add_argument('--timeout', metavar='-t', required=False, type=int,
                         help='for how long the crawler should be running, in seconds', default=False)
     args = parser.parse_args()
