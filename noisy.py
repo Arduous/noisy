@@ -178,16 +178,19 @@ class Crawler(object):
 
         self._browse_from_links(depth + 1)
 
-    def load_config_file(self, file_path):
+    def load_config_file(self, file_path_list):
         """
-        Loads and decodes a JSON config file, sets the config of the crawler instance
+        Loads and decodes JSON config files, sets the config of the crawler instance
         to the loaded one
-        :param file_path: path of the config file
+        :param file_path_list: list of paths of the config files
         :return:
         """
-        with open(file_path, 'r') as config_file:
-            config = json.load(config_file)
-            self.set_config(config)
+        config = {}
+        for i in file_path:
+            with open(i, 'r') as config_file:
+                config.update(json.load(config_file).items())
+        
+        self.set_config(config)
 
     def set_config(self, config):
         """
@@ -258,7 +261,7 @@ class Crawler(object):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--log', metavar='-l', type=str, help='logging level', default='info')
-    parser.add_argument('--config', metavar='-c', required=True, type=str, help='config file')
+    parser.add_argument('--config', metavar='-c', required=True, type=str, help='config file', action='append')
     parser.add_argument('--timeout', metavar='-t', required=False, type=int,
                         help='for how long the crawler should be running, in seconds', default=False)
     args = parser.parse_args()
