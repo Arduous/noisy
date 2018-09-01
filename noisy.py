@@ -186,7 +186,7 @@ class Crawler(object):
         :return:
         """
         config = {}
-        for i in file_path:
+        for i in file_path_list:
             with open(i, 'r') as config_file:
                 config.update(json.load(config_file).items())
         
